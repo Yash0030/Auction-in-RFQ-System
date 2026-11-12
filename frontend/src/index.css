@@ -1,0 +1,344 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #000000;
+  color: #f4f4f5;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+input, select, textarea {
+  font-family: inherit;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 20px;
+}
+
+.card {
+  background-color: #0c0c0e;
+  border: 1px solid #27272a;
+  border-radius: 8px;
+  padding: 22px;
+}
+
+.card:hover {
+  border-color: #3f3f46;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-primary {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.btn-primary:hover {
+  background-color: #e4e4e7;
+}
+
+.btn-primary:disabled {
+  background-color: #27272a;
+  color: #71717a;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: #18181b;
+  color: #f4f4f5;
+  border: 1px solid #3f3f46;
+}
+
+.btn-secondary:hover {
+  background-color: #27272a;
+  border-color: #52525b;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.badge-active {
+  background-color: #052e16;
+  color: #4ade80;
+  border: 1px solid #166534;
+}
+
+.badge-closed {
+  background-color: #27272a;
+  color: #d4d4d8;
+  border: 1px solid #52525b;
+}
+
+.badge-forced {
+  background-color: #450a0a;
+  color: #fca5a5;
+  border: 1px solid #991b1b;
+}
+
+.badge-l1 {
+  background-color: #172554;
+  color: #93c5fd;
+  border: 1px solid #1d4ed8;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #d4d4d8;
+}
+
+.form-control {
+  width: 100%;
+  background-color: #18181b;
+  border: 1px solid #3f3f46;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  outline: none;
+}
+
+.form-control:focus {
+  border-color: #ffffff;
+}
+
+.auction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+th {
+  background-color: #18181b;
+  color: #a1a1aa;
+  font-weight: 600;
+  padding: 12px 14px;
+  border-bottom: 1px solid #27272a;
+}
+
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #27272a;
+  color: #f4f4f5;
+}
+
+tr:hover td {
+  background-color: #141416;
+}
+
+.alert-error {
+  background-color: #450a0a;
+  border: 1px solid #991b1b;
+  color: #fca5a5;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  margin-bottom: 16px;
+}
+
+.alert-success {
+  background-color: #052e16;
+  border: 1px solid #166534;
+  color: #86efac;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  margin-bottom: 16px;
+}
+
+.navbar {
+  background-color: #09090b;
+  border-bottom: 1px solid #27272a;
+  padding: 14px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.88rem;
+  color: #d4d4d8;
+}
+
+.page-transition {
+  animation: pageFadeIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-backdrop-blur {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: modalBackdropAnim 0.22s ease-out forwards;
+}
+
+@keyframes modalBackdropAnim {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+.modal-square-box {
+  background-color: #0c0c0e;
+  border: 1px solid #27272a;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.95);
+  animation: modalScaleAnim 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  overflow: hidden;
+}
+
+@keyframes modalScaleAnim {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes continuousHighlightPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.65);
+    border-color: #eab308;
+    background-color: rgba(234, 179, 8, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 18px 4px rgba(234, 179, 8, 0.45);
+    border-color: #facc15;
+    background-color: rgba(234, 179, 8, 0.22);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.65);
+    border-color: #eab308;
+    background-color: rgba(234, 179, 8, 0.12);
+  }
+}
+
+.timer-monitor-highlight {
+  animation: continuousHighlightPulse 1.8s infinite ease-in-out !important;
+  border-width: 2px !important;
+}
