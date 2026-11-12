@@ -11,6 +11,7 @@ def get_now(ref: Optional[datetime] = None) -> datetime:
         return datetime.now(timezone.utc)
     return datetime.now()
 
+# auto-update rfq status based on current timestamp
 def refresh_rfq_status(rfq: RFQ, db: Session) -> str:
     now = get_now(rfq.bid_close_time)
     original_status = rfq.status
@@ -33,6 +34,7 @@ def refresh_rfq_status(rfq: RFQ, db: Session) -> str:
         db.commit()
     return rfq.status
 
+# calculate supplier leaderboard: lowest price first, tie-break by earlier bid
 def calculate_supplier_ranks(rfq_id: int, db: Session) -> Tuple[Dict[int, int], Optional[int]]:
     bids = db.query(QuoteBid).filter(QuoteBid.rfq_id == rfq_id).order_by(QuoteBid.total_amount.asc(), QuoteBid.submitted_at.asc()).all()
     supplier_bests = {}
@@ -54,6 +56,7 @@ def calculate_supplier_ranks(rfq_id: int, db: Session) -> Tuple[Dict[int, int], 
     l1_supplier = sorted_suppliers[0][0] if sorted_suppliers else None
     return ranks, l1_supplier
 
+# check if bid lands in trigger window and matches extension rules
 def evaluate_extension(
     rfq: RFQ,
     supplier: User,
@@ -70,6 +73,7 @@ def evaluate_extension(
     time_left = rfq.bid_close_time - now
     trigger_delta = timedelta(minutes=rfq.trigger_window_minutes)
 
+    # only trigger extension if within the final X minutes
     if not (timedelta(0) <= time_left <= trigger_delta):
         return False, ""
 
@@ -92,6 +96,7 @@ def evaluate_extension(
     if not should_extend:
         return False, ""
 
+    # cap extension at hard forced close ceiling
     extra = timedelta(minutes=rfq.extension_duration_minutes)
     tentative_close = rfq.bid_close_time + extra
     extended_close = min(tentative_close, rfq.forced_bid_close_time)

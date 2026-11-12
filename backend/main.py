@@ -7,6 +7,7 @@ from app.routers import all_routers
 from app.sockets.server import sio
 from app.services.scheduler import start_scheduler, stop_scheduler
 
+# create tables if not existing
 Base.metadata.create_all(bind=engine)
 
 api = FastAPI(title="British Auction RFQ API")
@@ -34,6 +35,7 @@ def health_check():
 for router_obj, prefix in all_routers:
     api.include_router(router_obj, prefix=prefix)
 
+# wrap fastapi in socketio asgi application
 app = socketio.ASGIApp(
     sio,
     other_asgi_app=api,

@@ -45,6 +45,7 @@ export const AuctionListPage = () => {
   };
 
   useEffect(() => {
+    // initial fetch and socket listeners for auction list updates
     fetchRfqs();
 
     const handleListUpdate = () => {
@@ -219,6 +220,7 @@ export const AuctionListPage = () => {
                 </div>
 
                 {(() => {
+                  // check if auction is in extension window to highlight card timer
                   const nowMs = Date.now();
                   const closeMs = new Date(rfq.bid_close_time).getTime();
                   const winMs = (rfq.trigger_window_minutes || 0) * 60 * 1000;

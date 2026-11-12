@@ -37,6 +37,7 @@ async def update_rfq(
     current_user: User = Depends(require_role("BUYER")),
     db: Session = Depends(get_db)
 ):
+    # apply updates and push updated tender state to room
     updated = update_upcoming_rfq(rfq_id, payload, current_user, db)
     full_detail = get_rfq_detail_dict(rfq_id, current_user, db)
     await broadcast_rfq_update(rfq_id, full_detail)
@@ -48,6 +49,7 @@ async def remove_rfq(
     current_user: User = Depends(require_role("BUYER")),
     db: Session = Depends(get_db)
 ):
+    # delete tender and notify connected clients to redirect
     result = delete_rfq(rfq_id, current_user, db)
     await broadcast_rfq_deleted(rfq_id)
     return result

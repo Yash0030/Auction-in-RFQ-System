@@ -57,6 +57,7 @@ export const AuctionDetailPage = () => {
   };
 
   useEffect(() => {
+    // join socket room and listen for real-time rfq updates
     fetchDetail(true);
 
     socket.emit("join_rfq", { rfq_id: rfqId });
@@ -91,6 +92,7 @@ export const AuctionDetailPage = () => {
     };
   }, [rfqId]);
 
+  // calculate live total amount across cost components
   const totalCalculated = useMemo(() => {
     const f = parseFloat(freightCharges) || 0;
     const o = parseFloat(originCharges) || 0;
@@ -98,6 +100,7 @@ export const AuctionDetailPage = () => {
     return (f + o + d).toFixed(2);
   }, [freightCharges, originCharges, destinationCharges]);
 
+  // sort quotes top-to-bottom: L1 at top, tie-break by time
   const sortedBids = useMemo(() => {
     const list = data?.bids;
     if (!list || !Array.isArray(list)) return [];
@@ -118,6 +121,7 @@ export const AuctionDetailPage = () => {
     });
   }, [data?.bids]);
 
+  // sort logs newest first with sub-second id tie-break
   const sortedLogs = useMemo(() => {
     const list = data?.logs;
     if (!list || !Array.isArray(list)) return [];
@@ -255,6 +259,7 @@ export const AuctionDetailPage = () => {
   const closeCountdown = getTimeRemaining(rfq.bid_close_time);
   const forcedCountdown = getTimeRemaining(rfq.forced_bid_close_time);
 
+  // evaluate if auction is inside the X-minute extension monitor window
   const closeTimeMs = new Date(rfq.bid_close_time).getTime();
   const triggerWindowMs = (rfq.trigger_window_minutes || 0) * 60 * 1000;
   const isMonitorPeriod = rfq.status === "ACTIVE" &&

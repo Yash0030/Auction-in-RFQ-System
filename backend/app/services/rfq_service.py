@@ -9,6 +9,7 @@ from app.models.user import User
 from app.schemas.rfq import RFQCreate, RFQUpdate, RFQResponse
 from app.services.auction_engine import refresh_rfq_status, calculate_supplier_ranks
 
+# create tender and log initial creation event
 def create_new_rfq(payload: RFQCreate, creator: User, db: Session) -> RFQ:
     if payload.forced_bid_close_time <= payload.bid_close_time:
         raise HTTPException(status_code=400, detail="Forced Bid Close Time must be strictly later than Bid Close Time")
@@ -180,6 +181,7 @@ def get_rfq_detail_dict(rfq_id: int, current_user: Optional[User], db: Session) 
         "user_latest_quote": user_latest_quote
     }
 
+# allow tender updates only while auction is in DRAFT
 def update_upcoming_rfq(rfq_id: int, payload: RFQUpdate, user: User, db: Session) -> RFQ:
     rfq = db.query(RFQ).filter(RFQ.id == rfq_id).first()
     if not rfq:
@@ -248,6 +250,7 @@ def update_upcoming_rfq(rfq_id: int, payload: RFQUpdate, user: User, db: Session
     refresh_rfq_status(rfq, db)
     return rfq
 
+# delete tender and cascade delete associated quotes and logs
 def delete_rfq(rfq_id: int, user: User, db: Session) -> dict:
     rfq = db.query(RFQ).filter(RFQ.id == rfq_id).first()
     if not rfq:

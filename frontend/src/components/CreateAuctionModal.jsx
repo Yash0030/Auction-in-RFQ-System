@@ -31,6 +31,7 @@ export const CreateAuctionModal = () => {
     forcedCloseTime: ""
   });
 
+  // clear form fields on modal open, cancel or submit
   const resetForm = () => {
     setReferenceId("");
     setPickupDate("");
@@ -193,6 +194,7 @@ export const CreateAuctionModal = () => {
 
     setSubmitting(true);
     try {
+      // post rfq payload with british auction settings
       const res = await fetch(`${API_URL}/api/rfqs`, {
         method: "POST",
         headers: {

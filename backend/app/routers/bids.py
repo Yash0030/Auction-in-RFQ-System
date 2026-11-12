@@ -17,6 +17,7 @@ async def place_bid(
     current_user: User = Depends(require_role("SUPPLIER")),
     db: Session = Depends(get_db)
 ):
+    # persist supplier bid, evaluate extension, and push updated ranks to room
     new_bid, extended, reason = submit_quote_bid(rfq_id, payload, current_user, db)
     full_detail = get_rfq_detail_dict(rfq_id, current_user, db)
     await broadcast_rfq_update(rfq_id, full_detail)

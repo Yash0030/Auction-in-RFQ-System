@@ -25,10 +25,12 @@ def submit_quote_bid(rfq_id: int, payload: QuoteBidCreate, supplier: User, db: S
     if now >= rfq.bid_close_time:
         raise HTTPException(status_code=400, detail="Auction is closed.")
 
+    # compute total across freight, origin and destination components
     total_amount = round(payload.freight_charges + payload.origin_charges + payload.destination_charges, 2)
     if total_amount <= 0:
         raise HTTPException(status_code=400, detail="Total amount must be greater than zero.")
 
+    # ensure new bid beats the supplier's previous personal best
     existing_bids = db.query(QuoteBid).filter(
         QuoteBid.rfq_id == rfq.id,
         QuoteBid.supplier_id == supplier.id
@@ -68,6 +70,7 @@ def submit_quote_bid(rfq_id: int, payload: QuoteBidCreate, supplier: User, db: S
         created_at=now
     ))
 
+    # evaluate dynamic extension rules and commit transaction
     extended, extension_reason = evaluate_extension(
         rfq=rfq,
         supplier=supplier,

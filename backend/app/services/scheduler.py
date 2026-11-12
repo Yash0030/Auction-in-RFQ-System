@@ -10,6 +10,7 @@ logger = logging.getLogger("auction_scheduler")
 
 _scheduler_task: asyncio.Task = None
 
+# poll draft and active auctions periodically for status transitions
 async def run_auction_scheduler(interval_seconds: int = 30):
     logger.info(f"Auction background scheduler loop started (ticking every {interval_seconds}s)")
     while True:
