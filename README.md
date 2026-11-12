@@ -232,9 +232,9 @@ RFQ-Auction/
 │   │   └── socket.js
 │   ├── package.json
 │   └── vite.config.js
-├── generate_block_diagrams.py
 ├── HLD.pdf
 ├── DB_SCHEMA.pdf
+├── DB_SCHEMA.png
 └── README.md
 ```
 
@@ -274,8 +274,10 @@ PORT=8000
 
 5. Start the FastAPI ASGI server:
 ```bash
-python main.py
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
+*(Alternatively, run `python main.py`, which executes the same Uvicorn instance directly).*
+
 Database tables are automatically created on initial startup via SQLAlchemy (`Base.metadata.create_all`). Backend API and Socket.IO server will be accessible at http://localhost:8000.
 
 ---
